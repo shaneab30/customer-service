@@ -47,34 +47,15 @@ public class CustomerController {
         return customerService.save(customer);
     }
 
-    // // Update customer by id
-    // @ResponseStatus(HttpStatus.OK) // 200
-    // @PutMapping("/{id}")
-    // public Customer updateById(@PathVariable Long id, @RequestBody Customer customer) {
-    //     return customerService.update(id, customer);
-    // }
-
     // Delete customer by id
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         customerService.deleteById(id);
     }
 
-    // Get customer by email
-    // @GetMapping("/find/email/{email}")
-    // public Optional<Customer> findByEmail(@PathVariable String email) {
-    //     return customerService.findByEmail(email);
-    // }
-
     // Get all customer by firstname
     @GetMapping("/find/firstname/{firstname}")
     public List<Customer> findByFirstname(@PathVariable String firstname) {
         return customerService.findByFirstname(firstname);
     }
-
-    // Get all customer by birthday
-    // @GetMapping("/find/birthday/{birthday}")
-    // public List<Customer> findByBirthday(@PathVariable LocalDate birthday) {
-    //     return customerService.findByBirthday(birthday);
-    // }
 }
