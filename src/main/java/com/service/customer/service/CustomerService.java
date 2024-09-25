@@ -3,6 +3,7 @@ package com.service.customer.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.service.customer.dto.CustomerResponse;
 import com.service.customer.model.Customer;
 import com.service.customer.repository.CustomerRepository;
 
@@ -16,13 +17,16 @@ public class CustomerService {
 
 
     // Get all customer
-    public List<Customer> findAll(){
-        return customerRepository.findAll();
+    public List<CustomerResponse> findAll(){
+        List<Customer> customers = customerRepository.findAll();
+        return customers.stream().map(this::convertToCustomerResponse).toList();
+        // use .collect(Collectors.toList()) for mutable list
     }
 
     // Get customer by id
-    public Optional<Customer> findById(Long id){
-        return customerRepository.findById(id);
+    public Optional<CustomerResponse> findById(Long id){
+        Optional<Customer> customer = customerRepository.findById(id);
+        return customer.map(this::convertToCustomerResponse);
     }
 
     // Save/insert/update customer
@@ -36,7 +40,14 @@ public class CustomerService {
     }
 
     // Get customer by firstname
-    public List<Customer> findByFirstname(String firstname){
-        return customerRepository.findByFirstname(firstname);
+    public List<CustomerResponse> findByFirstname(String firstname){
+        List<Customer> customers = customerRepository.findByFirstname(firstname);
+        return customers.stream().map(this::convertToCustomerResponse).toList();
+        // use .collect(Collectors.toList()) for mutable list
+    }
+
+
+    private CustomerResponse convertToCustomerResponse(Customer customer) {
+        return new CustomerResponse(customer.getId(), customer.getFirstname(), customer.getLastname(), customer.getEmail(), customer.getAddress(), customer.getTelephone(), customer.getBirthday());
     }
 }

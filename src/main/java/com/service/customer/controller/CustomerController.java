@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.service.customer.dto.CustomerResponse;
 import com.service.customer.model.Customer;
 import com.service.customer.service.CustomerService;
 
@@ -25,13 +26,13 @@ public class CustomerController {
 
     // Get all customer
     @GetMapping
-    public List<Customer> findAll() {
+    public List<CustomerResponse> findAll() {
         return customerService.findAll();
     }
 
     // Get customer by id
     @GetMapping("/{id}")
-    public Optional<Customer> findById(@PathVariable Long id) {
+    public Optional<CustomerResponse> findById(@PathVariable Long id) {
         return customerService.findById(id);
     }
 
@@ -55,7 +56,7 @@ public class CustomerController {
 
     // Get all customer by firstname
     @GetMapping("/find/firstname/{firstname}")
-    public List<Customer> findByFirstname(@PathVariable String firstname) {
+    public List<CustomerResponse> findByFirstname(@PathVariable String firstname) {
         return customerService.findByFirstname(firstname);
     }
 }
