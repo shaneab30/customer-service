@@ -33,6 +33,11 @@ public class CustomerController {
     // Get customer by id
     @GetMapping("/{id}")
     public Optional<CustomerResponse> findById(@PathVariable Long id) {
+        Optional<CustomerResponse> customer = customerService.findById(id);
+
+        if (!customer.isPresent()) {
+            throw new IllegalArgumentException("Customer not found with id: " + id);
+        }
         return customerService.findById(id);
     }
 
